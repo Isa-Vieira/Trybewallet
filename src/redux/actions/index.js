@@ -1,1 +1,3 @@
-// Coloque aqui suas actions
+export const USER = 'USER';
+
+export const newAction = (payload) => ({ type: 'USER', payload });
