@@ -15,3 +15,10 @@ export const getApiAction = () => async (dispatch) => {
   const recebeSiglas = Object.keys(payload);
   dispatch(valorMoeda(recebeSiglas));
 };
+
+export const thunkState = (payload) => async (dispatch) => {
+  const exchangeRates = await getApi();
+  const novoObject = { ...payload, exchangeRates };
+  dispatch(despesasAction(novoObject));
+  /*   const objState  */
+};
