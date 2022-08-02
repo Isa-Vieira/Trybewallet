@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { removeThunk } from '../redux/actions';
 
 class Table extends Component {
+  onClickButton = (event) => {
+    const { deleteDispatch, expensesTable } = this.props;
+    const info = { id: event.target.name, expensesTable };
+    deleteDispatch(info);
+  }
+
   render() {
     const { expensesTable } = this.props;
     return (
@@ -36,6 +43,16 @@ class Table extends Component {
                     .ask * (Number(param.value)))).toFixed(2)}
                 </td>
                 <td>{param.exchangeRates[param.currency].name}</td>
+                <td key={ param.id }>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    name={ param.id }
+                    onClick={ this.onClickButton }
+                  >
+                    Excluir
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -48,12 +65,12 @@ const mapStateToProps = (state) => ({
   expensesTable: state.wallet.expenses,
 });
 
-/* const mapDispatchToProps = (dispatch) => {
-
-}; */
+const mapDispatchToProps = (dispatch) => ({
+  deleteDispatch: (info) => dispatch(removeThunk(info)),
+});
 
 Table.propTypes = {
   expensesTable: PropTypes.array.isRequired,
 }.isRequired;
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
