@@ -19,7 +19,7 @@ class Header extends Component {
                 const multiplica = valueArmazenado * ask;
                 acc += multiplica;
                 return Math.round(acc * 100) / 100;
-              }, 0)
+              }, 0).toFixed(2)
             }
 
           </p>
